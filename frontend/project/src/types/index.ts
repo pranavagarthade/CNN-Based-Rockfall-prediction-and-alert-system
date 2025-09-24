@@ -83,3 +83,73 @@ export interface WeatherData {
   visibility: number;
   icon: string;
 }
+
+export interface MineLocation {
+  id: string;
+  name: string;
+  coordinates: [number, number];
+  type: string;
+  state: string;
+  production: string;
+  operationalStatus: 'Active' | 'Inactive' | 'Under Development';
+  riskLevel: 'High' | 'Medium' | 'Low';
+  lastUpdated: string;
+  realTimeData?: {
+    gasLevels?: number;
+    temperature?: number;
+    seismicActivity?: number;
+    airQuality?: number;
+    emergencyStatus?: 'Normal' | 'Alert' | 'Emergency';
+  };
+}
+
+export interface WeatherData {
+  temperature: number;
+  condition: string;
+  humidity: number;
+  windSpeed: number;
+  visibility: number;
+  icon: string;
+}
+
+export interface UserLocation {
+  lat: number;
+  lng: number;
+  accuracy: number;
+  timestamp: number;
+}
+
+export interface SafeRoute {
+  id: string;
+  name: string;
+  coordinates: [number, number][];
+  distance: number;
+  estimatedTime: number;
+  safetyScore: number;
+  avoidedHazards: string[];
+  instructions: string[];
+}
+
+export interface DangerZone {
+  id: string;
+  name: string;
+  mineId: string;
+  coordinates: [number, number][];
+  type: string;
+  riskLevel: 'Critical' | 'High' | 'Medium' | 'Low';
+  description: string;
+  radius: number;
+  lastUpdated: string;
+  realTimeStatus: 'Active' | 'Monitoring' | 'Cleared';
+}
+
+export interface EmergencyAlert {
+  id: string;
+  type: 'Fire' | 'Gas Leak' | 'Landslide' | 'Explosion' | 'Evacuation';
+  location: [number, number];
+  radius: number;
+  severity: 'Critical' | 'High' | 'Medium';
+  message: string;
+  timestamp: number;
+  isActive: boolean;
+}

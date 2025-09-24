@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, currentPage, onNavigate
                 className={`text-sm font-semibold px-3 py-1 rounded ${currentPage === 'maps' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`}
                 onClick={() => onNavigate('maps')}
               >
-                Map
+                Mine Locations
               </button>
             </nav>
           </div>
