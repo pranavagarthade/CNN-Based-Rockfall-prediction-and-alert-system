@@ -1,2 +1,1 @@
-# GG
-NONE
+ky be kele 🍌
