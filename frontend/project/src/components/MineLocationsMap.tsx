@@ -149,7 +149,14 @@ const MineMarker: React.FC<MineMarkerProps> = ({ mine, weather, onMarkerClick })
   );
 };
 
-const MineLocationsMap: React.FC = () => {
+import { Polyline } from 'react-leaflet';
+interface MineLocationsMapProps {
+  dangerMine?: string | null;
+}
+
+const SAFE_LOCATION: [number, number] = [28.6139, 77.2090]; // Example: New Delhi as a safe location
+
+const MineLocationsMap: React.FC<MineLocationsMapProps> = ({ dangerMine }) => {
   const [weatherData, setWeatherData] = useState<{ [key: string]: WeatherData }>({});
   const [selectedMine, setSelectedMine] = useState<MineLocation | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -205,7 +212,6 @@ const MineLocationsMap: React.FC = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          
           {topMineLocations.map((mine) => (
             <MineMarker
               key={mine.id}
@@ -214,6 +220,17 @@ const MineLocationsMap: React.FC = () => {
               onMarkerClick={handleMarkerClick}
             />
           ))}
+          {/* Draw escape path if dangerMine is set */}
+          {dangerMine && (() => {
+            const mine = topMineLocations.find(m => m.name === dangerMine);
+            if (!mine) return null;
+            return (
+              <Polyline
+                positions={[mine.coordinates, SAFE_LOCATION]}
+                pathOptions={{ color: 'lime', weight: 6, dashArray: '10,10' }}
+              />
+            );
+          })()}
         </MapContainer>
       </div>
 
